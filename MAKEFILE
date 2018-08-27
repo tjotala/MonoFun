@@ -1,0 +1,33 @@
+AS = tasm
+LN = tlink
+SS = tdstrip
+
+ASFLAGS = /m5 /ml /zi
+LNFLAGS = /k /l /s /Tde /v
+SSFLAGS = /c /s
+
+all : monofun.com # text.mfm graphics.mfm
+
+monofun.com : monofun.obj
+  $(LN) $(LNFLAGS) monofun,$*,$*
+  $(SS) $(SSFLAGS) $*.exe $@
+  
+monofun.obj : monofun.asm text.asm graphics.asm monofun.inc dos.inc vio.inc amis.inc makefile
+  $(AS) $(ASFLAGS) monofun,$@
+
+#text.mfm : text.obj
+#  $(LN) $(LNFLAGS) text,$*,$*
+#  $(SS) $(SSFLAGS) $*.exe
+#  ren $*.com $@
+#
+#text.obj : text.asm monofun.inc
+#  $(AS) $(ASFLAGS) text,$@
+
+#graphics.mfm : graphics.obj
+#  $(LN) $(LNFLAGS) graphics,$*,$*
+#  $(SS) $(SSFLAGS) $*.exe
+#  ren $*.com $@
+#
+#graphics.obj : graphics.asm monofun.inc
+#  $(AS) $(ASFLAGS) graphics,$@
+
